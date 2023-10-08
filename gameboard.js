@@ -15,4 +15,4 @@ const generateGameBoard = () => {
     });
 };
 
-generateGameBoard()
+module.exports = generateGameBoard()
