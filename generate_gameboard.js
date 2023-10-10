@@ -1,8 +1,8 @@
 const generateGameBoard = () => {
-    const gameBoards = document.querySelectorAll('.gameboard');
+    const gameBoardDiv = document.querySelectorAll('.gameboard');
     const boardSize = 10;
 
-    gameBoards.forEach(board => {
+    gameBoardDiv.forEach(board => {
         for (let row = 0; row < boardSize; row++) {
             for (let col = 0; col < boardSize; col++) {
                 const cell = document.createElement('div');
@@ -15,4 +15,4 @@ const generateGameBoard = () => {
     });
 };
 
-module.exports = generateGameBoard()
+/* module.exports = generateGameBoard; */

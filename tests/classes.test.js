@@ -1,4 +1,7 @@
-const { Ship, GameBoard } = require('../js/classes');
+const { GameBoard } = require('../classes/gameboard.js');
+const { Ship } = require('../classes/ships.js');
+const { Player } = require('../classes/players.js');
+
 
 
 
@@ -100,22 +103,69 @@ describe('gameboard testing', () => {
     });
 
     test('sinks ships independently', () => {
-        const gameboard = new GameBoard();
+        const gameboard = new GameBoard(10);
         const ship1 = new Ship(2);
         const ship2 = new Ship(3);
         gameboard.placeShip(ship1, [1, 1], 'horizontal');
         gameboard.placeShip(ship2, [4, 4], 'vertical');
         
-        // Sink ship1
         gameboard.receiveAttack([1, 1]);
         gameboard.receiveAttack([2, 1]);
         expect(ship1.isSunk()).toBe(true);
         expect(ship2.isSunk()).toBe(false);
         
-        // Sink ship2
         gameboard.receiveAttack([4, 4]);
         gameboard.receiveAttack([4, 5]);
         gameboard.receiveAttack([4, 6]);
         expect(ship2.isSunk()).toBe(true);
     });
 });
+
+describe('player testing', () => {
+    
+    test('creates a player with default type human', () => {
+        const player = new Player();
+        expect(player.type).toBe('human');
+    });
+
+    test('creates a computer player', () => {
+        const player = new Player('computer');
+        expect(player.type).toBe('computer');
+    });
+
+    test('player can place a ship on their gameboard', () => {
+        const player = new Player();
+        const ship = new Ship(3);
+        player.placeShip(ship, [0, 0], 'horizontal');
+        expect(player.gameboard.board[0][0]).toBe(ship);
+    });
+
+    test('player can attack opponent gameboard', () => {
+        const player1 = new Player();
+        const player2 = new Player();
+        const ship = new Ship(3);
+        player2.placeShip(ship, [0, 0], 'horizontal');
+        expect(player1.attack(player2.gameboard, [0, 0])).toBe('hit');
+        expect(player1.attack(player2.gameboard, [9, 9])).toBe('miss');
+    });
+
+    test('allShipsSunk returns correct value', () => {
+        const player = new Player();
+        const ship = new Ship(2);
+        player.placeShip(ship, [0, 0], 'horizontal');
+        player.gameboard.receiveAttack([0, 0]);
+        player.gameboard.receiveAttack([1, 0]);
+        expect(player.allShipsSunk()).toBe(true);
+    });
+
+    test('computer can make a legal random attack', () => {
+        const computer = new Player('computer');
+        const opponent = new Player();
+        for (let i = 0; i < 100; i++) { 
+            expect(() => {
+                computer.computerAttack(opponent.gameboard);
+            }).not.toThrow(Error);
+        }
+    });
+
+}); 

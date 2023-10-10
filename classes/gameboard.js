@@ -1,3 +1,5 @@
+const { Ship } = require('./ships.js');
+
 class GameBoard {
     constructor(size = 10){
         this.board = Array(size).fill(null).map(row => Array(size).fill(null));
@@ -76,4 +78,4 @@ class GameBoard {
     }
 }
 
-module.exports = GameBoard;
+module.exports.GameBoard = GameBoard;
