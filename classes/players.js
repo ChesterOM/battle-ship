@@ -13,7 +13,7 @@ class Player {
     }
 
     attack(gameboard, coord) {
-        return this.gameboard.receiveAttack(coord);
+        return gameboard.receiveAttack(coord);
     }
 
     allShipsSunk() {

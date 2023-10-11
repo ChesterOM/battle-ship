@@ -145,6 +145,7 @@ describe('player testing', () => {
         const player2 = new Player();
         const ship = new Ship(3);
         player2.placeShip(ship, [0, 0], 'horizontal');
+        console.log(player2.gameboard.board[0][0]);
         expect(player1.attack(player2.gameboard, [0, 0])).toBe('hit');
         expect(player1.attack(player2.gameboard, [9, 9])).toBe('miss');
     });
