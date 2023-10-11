@@ -15,4 +15,6 @@ const generateGameBoard = () => {
     });
 };
 
-/* module.exports = generateGameBoard; */
+generateGameBoard()
+
+module.exports = generateGameBoard;  

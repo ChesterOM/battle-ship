@@ -83,6 +83,10 @@ body {
     box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1), 0 0 6px rgba(0, 255, 0, 0.6);
 }
 
+.cell:hover {
+    background-color: #00a60059;
+}
+
 
 @media screen and (max-width: 480px) {
     .title h1 {

@@ -1,5 +1,3 @@
-const { GameBoard } = require('./classes/gameboard.js');
-const { Ship } = require('./classes/ships.js');
 const { Player } = require('./classes/players.js');
 
 
