@@ -1,6 +1,6 @@
-const { GameBoard } = require('../classes/gameboard.js');
-const { Ship } = require('../classes/ships.js');
-const { Player } = require('../classes/players.js');
+import { GameBoard } from './gameboard.js';
+import { Ship } from './ships.js';
+import { Player } from './classes/players.js';
 
 
 

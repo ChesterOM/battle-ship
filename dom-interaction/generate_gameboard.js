@@ -1,4 +1,4 @@
-const generateGameBoard = () => {
+function generateGameBoard() {
     const gameBoardDiv = document.querySelectorAll('.gameboard');
     const boardSize = 10;
 
@@ -15,6 +15,4 @@ const generateGameBoard = () => {
     });
 };
 
-generateGameBoard()
-
-module.exports = generateGameBoard;  
+export { generateGameBoard };

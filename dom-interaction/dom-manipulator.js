@@ -1,3 +1,5 @@
+import { Ship } from '../classes/ships.js';
+
 function renderGameboard(gameboard, elementID) {
     const boardDiv = document.getElementById(elementID);
 
@@ -19,7 +21,7 @@ function renderGameboard(gameboard, elementID) {
             } else {
                 cellDiv.classList.add('empty');
             }
-            boardDiv.appendChild('cellDiv');
+            boardDiv.appendChild(cellDiv);
         });
     });
 }
@@ -54,8 +56,4 @@ function displayEndgameMessage(winner){
     document.body.appendChild(messageDiv);
 }
 
-module.exports = {
-    renderGameboard,
-    playerAttack,
-    displayEndgameMessage
-};
+export { renderGameboard, playerAttack, displayEndgameMessage };

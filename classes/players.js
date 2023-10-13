@@ -1,5 +1,5 @@
-const { GameBoard } = require('./gameboard.js');
-const { Ship } = require('./ships.js');
+import { GameBoard } from './gameboard.js';
+import { Ship } from './ships.js';
 
 
 class Player {
@@ -39,4 +39,4 @@ class Player {
 
 }
 
-module.exports.Player = Player;
+export { Player };
