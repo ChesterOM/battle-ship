@@ -1,22 +1,23 @@
-const { Player } = require('./classes/players.js');
+import { displayEndgameMessage } from "./dom-interaction/dom-manipulator.js";
 
-
-function playGame() {
-    const human = new Player('human');
-    const computer =  new Player('computer');
-
-    while (!human.allShipsSunk() && !computer.allShipsSunk()) {
-        const humanCoord = null
-        human.attack(computer.gameboard, human);
-
-        if (computer.allShipsSunk()) break;
-
-        computer.computerAttack(human.gameboard);
-    }
-
-    if (human.allShipsSunk()) {
-        console.log('Computer Wins');
-    } else {
-        console.log('Player 1 Wins');
+function playGame(human, computer) {
+    if (computer.allShipsSunk()) {
+        displayEndgameMessage('Player 1 Wins');
+    } 
+    else {
+        computerMove(human, computer);
     }
 }
+
+function computerMove(human, computer) {
+    if (!human.allShipsSunk()) {
+        computer.computerAttack(human.gameboard);
+
+        if (human.allShipsSunk()) {
+            displayEndgameMessage('Computer Wins');
+        }
+    }
+}
+
+
+export { playGame };
