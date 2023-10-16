@@ -10,8 +10,11 @@ class GameBoard {
 
     placeShip(ship, startCoord, orientation = 'horizontal'){
         const [x,y] = startCoord;
-
         const shipCoords = [];
+        
+        ship.orientation = orientation;  
+        ship.startCoord = startCoord;
+        
         for(let i = 0; i < ship.length; i++){
             if (orientation === 'horizontal') {
                 shipCoords.push([x + i, y]);
@@ -19,16 +22,16 @@ class GameBoard {
                 shipCoords.push([x,y + i]);
             }
         }
-
+    
         if (!this.isPlacementValid(shipCoords)) {
             throw new Error('Invalid Ship Placement');
         }
-
+    
         shipCoords.forEach(coord => {
             const [x,y] = coord;
             this.board[x][y] = ship;
         });
-
+        
         this.ships.push(ship);
     }
 
@@ -49,24 +52,21 @@ class GameBoard {
 
     receiveAttack(coordinates) {
         const [row, col] = coordinates;
-    
+        
         if (row < 0 || col < 0 || row >= this.board.length || col >= this.board.length) {
             throw new Error("Invalid coordinates");
         }
-    
+        
         if (this.board[row][col] instanceof Ship) {
             const ship = this.board[row][col];
-            let startPosition;
-            
-            for(let i = row; i >= 0; i--){
-                if(this.board[i][col] !== ship){
-                    startPosition = i+1;
-                    break;
-                }
+            let position;
+    
+            if (ship.orientation === 'horizontal') {
+                position = col - ship.startCoord[1];
+            } else {
+                position = row - ship.startCoord[0];
             }
-    
-            const position = row - startPosition;
-    
+            
             ship.hit(position);
             return 'hit';
         } else if (this.board[row][col] === null) {
@@ -78,7 +78,9 @@ class GameBoard {
     }
 
     allShipsSunk(){
-        console.log(this.ships.every(ship => ship.isSunk()))
+        console.log('Checking if all ships are sunk.');//test
+        this.ships.forEach(ship => console.log(ship.hits));
+        console.log(this.ships.every(ship => ship.isSunk()));//test
         return this.ships.every(ship => ship.isSunk());
     }
 

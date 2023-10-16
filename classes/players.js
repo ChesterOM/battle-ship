@@ -8,10 +8,6 @@ class Player {
         this.previousAttacks = [];
     }
 
-    placeShip(ship, coord, orientation) {
-        this.gameboard.placeShip(ship, coord, orientation);
-    }
-
     attack(gameboard, coord) {
         return gameboard.receiveAttack(coord);
     }

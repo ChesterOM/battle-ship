@@ -15,6 +15,7 @@ function renderGameboard(gameboard, elementID) {
 
             if (cell instanceof Ship) {
                 cellDiv.classList.add('ship');
+                cellDiv.classList.add(`ship-${cell.id}`);
             } else if (cell === 'miss') { 
                 cellDiv.classList.add('miss');
             } else if (cell === 'hit'){
