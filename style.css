@@ -87,6 +87,30 @@ body {
     background-color: #00a60059;
 }
 
+.cell.ship {
+    background-color: green;
+}
+
+.cell.hit {
+    background-color: red;
+}
+
+.cell.miss {
+    background-color: grey;
+}
+
+.endgame-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    z-index: 1000;  
+}
 
 @media screen and (max-width: 480px) {
     .title h1 {

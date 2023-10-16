@@ -47,25 +47,38 @@ class GameBoard {
         return true;
     }
 
-    receiveAttack(coord){
-        const [x,y] = coord;
-        
-        if (this.hitCoordinates.some(([hx,hy]) => hx === x && hy === y)) {
-            throw new Error('Coordinate already attacked');
+    receiveAttack(coordinates) {
+        const [row, col] = coordinates;
+    
+        if (row < 0 || col < 0 || row >= this.board.length || col >= this.board.length) {
+            throw new Error("Invalid coordinates");
         }
-
-        if (this.board[x][y] instanceof Ship) {
-            this.board[x][y].hit();
-            this.hitCoordinates.push([x,y]);
-            console.log(`Ship at [${x},${y}] has been hit ${this.board[x][y].hits} times.`);
-            return 'hit'
+    
+        if (this.board[row][col] instanceof Ship) {
+            const ship = this.board[row][col];
+            let startPosition;
+            
+            for(let i = row; i >= 0; i--){
+                if(this.board[i][col] !== ship){
+                    startPosition = i+1;
+                    break;
+                }
+            }
+    
+            const position = row - startPosition;
+    
+            ship.hit(position);
+            return 'hit';
+        } else if (this.board[row][col] === null) {
+            this.board[row][col] = 'miss';
+            return 'miss';
         } else {
-        this.board[x][y] = 'miss';
-        return 'miss';
+            return 'already attacked';
         }
     }
 
     allShipsSunk(){
+        console.log(this.ships.every(ship => ship.isSunk()))
         return this.ships.every(ship => ship.isSunk());
     }
 

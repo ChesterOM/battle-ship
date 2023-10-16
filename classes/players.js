@@ -1,11 +1,11 @@
 import { GameBoard } from './gameboard.js';
-import { Ship } from './ships.js';
 
 
 class Player {
     constructor(type = 'human'){
         this.gameboard = new GameBoard();
         this.type = type;
+        this.previousAttacks = [];
     }
 
     placeShip(ship, coord, orientation) {
@@ -16,9 +16,6 @@ class Player {
         return gameboard.receiveAttack(coord);
     }
 
-    allShipsSunk() {
-        return this.gameboard.allShipsSunk()
-    }
 
     randomCoordinate(boardSize){
         const x = Math.floor(Math.random() * boardSize);
@@ -26,15 +23,16 @@ class Player {
         return [x,y];
     }
 
-    computerAttack(opponentGameboard){
-        let coord;
+    computerAttack(gameboard) {
+        const boardSize = gameboard.board.length;
+        let row, col;
+    
         do {
-            coord = this.randomCoordinate(opponentGameboard.board.length);
-        } while (opponentGameboard.board[coord[0]][coord[1]] === 'miss' || 
-                opponentGameboard.board[coord[0]][coord[1]] instanceof Ship &&
-                typeof opponentGameboard.board[coord[0]][coord[1]] === 'number'
-                );
-        return this.attack(opponentGameboard, coord);
+            [row, col] = this.randomCoordinate(boardSize);
+        } while (this.previousAttacks.includes(`${row},${col}`));
+    
+        this.previousAttacks.push(`${row},${col}`);
+        return [row, col]; 
     }
 
 }
