@@ -9,7 +9,7 @@ class Ship {
 
     hit(position) {
         this.hits[position] = true;
-        console.log('Ship hit:', this.hits);//test
+        console.log('Ship hit:', this.hits[position]);//test
     }
 
     isSunk() {
