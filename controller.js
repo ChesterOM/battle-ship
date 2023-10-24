@@ -29,6 +29,10 @@ function initGame() {
     computer.gameboard.placeShip(computerShip3, [0,0], 'horizontal');
 
     // ... add more if you want for computer
+    console.log(computerShip1)
+    console.log(computerShip1.startCoord)
+    console.log(computerShip1.startCoord[1])
+
 
     renderGameboard(human.gameboard, 'gameboard-player');
     renderGameboard(computer.gameboard, 'gameboard-ai');

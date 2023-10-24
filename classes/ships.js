@@ -1,19 +1,18 @@
 class Ship {
-    constructor(length, orientation = 'horizontal', id){
+    constructor(length, startCoord = [0,0], orientation = 'horizontal'){
         this.length = length;
-        this.id = id;
-        this.hits = Array(length).fill(false);
-        this.orientation = orientation; 
-        this.startCoord = [];
+        this.startCoord = startCoord;
+        this.orientation = orientation;
+        this.hits = Array(length).fill(null); 
     }
 
     hit(position) {
-        this.hits[position] = true;
-        console.log('Ship hit:', position);//test
+        this.hits[position] = 'hit'; 
+        console.log('Ship hit:', position);
     }
 
     isSunk() {
-        return this.hits.every(hit => hit);
+        return this.hits.every(hit => hit === 'hit'); 
     }
 }
 

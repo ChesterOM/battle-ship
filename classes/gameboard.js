@@ -17,9 +17,9 @@ class GameBoard {
         
         for(let i = 0; i < ship.length; i++){
             if (orientation === 'horizontal') {
-                shipCoords.push([x + i, y]);
+                shipCoords.push([x, y + i]); 
             } else {
-                shipCoords.push([x,y + i]);
+                shipCoords.push([x + i, y]); 
             }
         }
     
@@ -39,7 +39,7 @@ class GameBoard {
         for (let i = 0; i < coords.length; i ++) {
             const [x,y] = coords[i];
 
-            if (x < 0 || x >= this.board.length || y < 0 || y > this.board[0].length){
+            if (x < 0 || x >= this.board.length || y < 0 || y >= this.board[0].length){
                 return false;
             }
 
@@ -57,24 +57,34 @@ class GameBoard {
             throw new Error("Invalid coordinates");
         }
         
+        console.log("Row:", row);
+        console.log("Col:", col);
+        console.log("Type of Row:", typeof row);
+        console.log("Type of Col:", typeof col);
+
         if (this.board[row][col] instanceof Ship) {
             const ship = this.board[row][col];
             let position;
-    
             if (ship.orientation === 'horizontal') {
-                position = col - ship.startCoord[1];
-            } else {
-                position = row - ship.startCoord[0];
+                position = col - ship.startCoord[1]; // Position relative to the ship's starting column
+            } else { // vertical
+                position = row - ship.startCoord[0]; // Position relative to the ship's starting row
             }
-            
+
+            console.log("Calculated position:", position);
+            console.log(`Ship orientation: ${ship.orientation}`);
+        console.log(`Ship startCoord: ${ship.startCoord}`);
+        console.log(`Attack position: ${coordinates}`);
+        console.log(`Position in ship: ${position}`);
+
             ship.hit(position);
+            this.board[row][col] = 'hit'; // Mark board as hit.
             return 'hit';
         } else if (this.board[row][col] === null) {
-            this.board[row][col] = 'miss';
+            this.board[row][col] = 'miss'; // Mark board as miss if it's null.
             return 'miss';
-        } else {
-            return 'already attacked';
         }
+        return 'already attacked'; // This would only happen if it's already been marked as a hit or miss.
     }
 
     allShipsSunk(){
